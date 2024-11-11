@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wargames-notes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+    <button><a href="index.html">home</a></button>
+    <p class="disclaimer">I have no idea if what I'm saying is correct. Just my thought process.</p>
+        <h1>Natas</h1>
+        <details title="Natas2">
+            <summary>Natas2</summary>    
+            <center class="details-description-box">
+            I didn't take any notes on natas1. But I did have trouble with this second one:
+            <br><br>
+            There was a strange pixel.png on the page when inspecting the HTML. It was on a path called 'files/pixel.png' which implies the existence of a files folder on the website. 
+            <br><br>
+            So I typed in http://natas2.natas.labs.overthewire.org/files/ and found a new page. A sort of directory and as was no surprise pixel.png was on this page but a text file called users.txt was also here. Opening it I found the password for natas3! This took me a while to figure out.
+            </center>
+        </details>
+        <details title="Natas3">
+            <summary>Natas3</summary>
+            <center class="details-description-box">
+            There was a /robots.txt page. upon reading about this, robots.txt controls where search engine web crawlers can go on your site. This does not necessarily block the site from showing up in search results, it just disallows web crawlers from going somewhere on the website directory. So the robots.txt file is usually at the root directory so it's one of the first files that web crawlers see.
+            <br><br>
+            This is what was meant by "Now even Google won't find it." It's talking about google's web crawlers.
+            </center>
+        </details>
+        <details title="Natas7">
+            <summary>Natas7</summary>
+            <center class="details-description-box">
+            The next level I struggled with. Hours of reading and one YT tutortial:
+            <br><br>
+            Looking at the source code, you can see that the form for submitting the secret is referencing $secret on a file called 'secret.inc'. Upon researching what .inc files are, these usually reference included php files. since this implies the existence of an 'includes' folder on the website's directory, I typed in http://natas6.natas.labs.overthewire.org/includes/secret.inc and looked into the inspector and found the correct $secret = FOEIUWGHFEEUHOFUOIU
+            </center>
+        </details>
+        <details title="Natas8">
+            <summary>Natas8</summary>
+            <center class="details-description-box">
+                found the password in index.php?page=/etc/natas_webpass/natas8. 
+
+                Upon looking into this id=* is usually stored on a database somewhere which is why it looks so different from making pages in HTML. In normal HTML it would be something like:
+                
+                website.com/home or website.com/about for different pages. But with this method(Which I've learned is called the Front controller pattern) is more like:
+                
+                website.com/index.php?page=home or website.com/index.php?page=about. 
+                
+                Front controller: https://en.wikipedia.org/wiki/Front_controller
+                
+                In simpler terms, it's a script or object like an array that has data for each page in a similar grouping usually. Maybe not? I'm not exactly sure how this works. Even reading about it isn't exactly helping.
+                
+                It takes data for the pages from the index.php and using that data makes URL's that look like the above. I think
+            </center>
+        </details>
+        <details title="Natas9">
+            <summary>Natas9</summary>
+            <center class="details-description-box">
+            I had to learn PHP for this one. I knew we would be getting deeper into this. I downloaded XAMPP which is a bundle of MySQL, PHP, and Apache(which i'm still not sure what this is). In short, you need a web server(apache) to run PHP files. So XAMPP makes this easy, you start up the apache server and then from localhost run the php file by opening it:
+            <br><br>
+            http://localhost/natas8_decoding.php
+            <br><br>
+            (That is what I named the php file that i created). For simple scripts like the one I wrote, you can simply run it from the terminal with:
+            <br><br>
+            php natas8_decoding.php
+            <br><br>
+            Just replace it with whatever php file you're trying to run.
+            <br><br>
+            The main thing is the script I wrote. There was an encoded string in the sourcecode of natas8 called $encodedSecret. I just had to decode it, it was run through 3 different functions:
+            <br><br>
+            bin2hex, strrev, base64_encoding in that order.
+            <br><br>
+            Just had to write a script that reversed this in the reverse order:
+            <br><br>
+            first I hit the string with a base64_decoding, then strrev, then hex2bin. All these are built into php which is amazing since doing this purely in terminal would have been a fucking nightmare. I would like to learn more about the linux terminal and commands like sed.
+            
+            <br><br>
+            $string = base64_decode(strrev(hex2bin("3d3d516343746d4d6d6c315669563362")));
+            <br>
+            This presented me with the secret to enter:
+            <br><br>
+            oubWYf2kBq
+        </center>
+        </details>
+        <h1>Bandit</h1>
+        <br>
+        <details title="Bandit Passwords">
+            <summary>Bandit Passwords</summary>
+            <p class="details-description-box">
+            Bandit1: ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If <br>
+            Bandit2: 263JGJPfgU6LtdEvgfWU1XP5yac29mFx <br>
+            Bandit3: MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx <br>
+            Bandit4: 2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ <br>
+            Bandit5: 4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw <br>
+            </p>
+        </details>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
