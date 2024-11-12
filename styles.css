@@ -72,3 +72,6 @@ button {
     padding: 10px;
     border: solid black 3px;
 }
+.day-box.completed {
+    background-color: green;
+}
